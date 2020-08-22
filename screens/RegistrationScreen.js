@@ -1,8 +1,31 @@
 import React from 'react';
 import { View, Text,Button, StyleSheet,TextInput,TouchableOpacity } from 'react-native';
 
-const RegistrationScreen = props => {
-  RegistrationScreen.navigationOptions = { header: null};
+export default class RegistrationScreen extends React.Component {
+  static navigationOptions = { header: null};
+
+  constructor(props){
+    super(props);
+      this.state ={
+        fullname:"",
+        mobile:"",
+        email:"",
+        password1:"",
+        password2 :""
+      }
+  }
+
+addBtnPressed = () => {
+  const { fullname, mobile, email, password1, password2 } = this.state  
+  if(fullname == "" || mobile == "" || email == "" || password1 == "" || password2 == "") {
+    alert('Please Enter Email and Password');
+      } 
+    else {
+      this.props.navigation.replace('Login');
+    }
+  };
+
+render(){
   return (
     <View style={styles.screen}>
 
@@ -15,6 +38,7 @@ const RegistrationScreen = props => {
             style={styles.inputText}
             placeholder="Full Name..." 
             placeholderTextColor="#003f5c"
+            onChangeText={fullname => this.setState({fullname})}
             />
         </View>
 
@@ -23,6 +47,7 @@ const RegistrationScreen = props => {
             style={styles.inputText}
             placeholder="Mobile..." 
             placeholderTextColor="#003f5c"
+            onChangeText={mobile => this.setState({mobile})}
             />
         </View>
       
@@ -31,6 +56,7 @@ const RegistrationScreen = props => {
             style={styles.inputText}
             placeholder="Email..." 
             placeholderTextColor="#003f5c"
+            onChangeText={email => this.setState({email})}
             />
         </View>
 
@@ -39,6 +65,7 @@ const RegistrationScreen = props => {
             style={styles.inputText}
             placeholder="New Password..." 
             placeholderTextColor="#003f5c"
+            onChangeText={password1 => this.setState({password1})}
             />
         </View>
 
@@ -47,16 +74,17 @@ const RegistrationScreen = props => {
             style={styles.inputText}
             placeholder="Coinfirm Password..." 
             placeholderTextColor="#003f5c"
+            onChangeText={password2 => this.setState({password2})}
             />
         </View>
 
-        <TouchableOpacity style={styles.loginBtn}onPress={()=>{
-          props.navigation.replace('Login');
-          }}>
+        <TouchableOpacity style={styles.loginBtn}
+        onPress={this.addBtnPressed}>
           <Text style={styles.loginText}>Sign up</Text>
         </TouchableOpacity>
     </View>
   );
+        }
 };
 
 const styles = StyleSheet.create({
@@ -111,4 +139,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default RegistrationScreen;

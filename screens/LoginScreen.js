@@ -1,8 +1,28 @@
 import React from 'react';
 import { View, Text,Button, StyleSheet,TextInput,TouchableOpacity } from 'react-native';
 
-const LoginScreen = props => {
-  LoginScreen.navigationOptions = { header: null};
+export default class LoginScreen extends React.Component {
+  static navigationOptions = { header: null};
+
+  constructor(props){
+    super(props);
+      this.state ={
+        email:"",
+        password :""
+      }
+  }
+
+addBtnPressed = () => {
+  const { email, password } = this.state  
+  if(email == "" || password == "") {
+    alert('Please Enter Email and Password');
+      } 
+    else {
+      this.props.navigation.replace('Main');
+    }
+  };
+
+render(){
     return (
     <View style={styles.screen}>
 
@@ -15,6 +35,7 @@ const LoginScreen = props => {
             style={styles.inputText}
             placeholder="Email..." 
             placeholderTextColor="#003f5c"
+            onChangeText={email => this.setState({email})}
             />
         </View>
 
@@ -23,22 +44,24 @@ const LoginScreen = props => {
             style={styles.inputText}
             placeholder="Password..." 
             placeholderTextColor="#003f5c"
+            onChangeText={password => this.setState({password})}
             />
         </View>
 
-        <TouchableOpacity style={styles.loginBtn}onPress={()=>{
-          props.navigation.replace('Main');
-          }}>
+
+        <TouchableOpacity style={styles.loginBtn}
+          onPress={this.addBtnPressed}>
           <Text style={styles.loginText}>Sign in</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.regiText}onPress={()=>{
-          props.navigation.replace('Registration');
+          this.props.navigation.replace('Registration');
           }}>
           <Text style={styles.regiText}>Don't have an account? Sign up here</Text>
         </TouchableOpacity>
     </View>
   );
+        }
 };
 
 const styles = StyleSheet.create({
@@ -93,4 +116,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;

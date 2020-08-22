@@ -13,6 +13,7 @@ export default class CurrencyScreen extends React.Component{
 
   static navigationOptions = { header: null };
 
+  
   constructor(props){
     super(props);
       this.state ={
